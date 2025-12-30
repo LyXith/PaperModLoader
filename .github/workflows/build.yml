@@ -33,7 +33,7 @@ jobs:
       - name: Apply Patches
         run: ./gradlew applyPatches
       - name: Build Jar
-        run: ./gradlew createPaprclipJar
+        run: ./gradlew createMojmapPaperclipJar
 
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0

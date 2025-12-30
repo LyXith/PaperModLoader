@@ -15,11 +15,11 @@ subprojects {
 val mainClass = "io.papermc.paperclip.Main"
 
 tasks.jar {
-    val java6Jar = project(":paperclip:java6").tasks.named("jar")
+   // val java6Jar = project(":paperclip:java6").tasks.named("jar")
     val java17Jar = project(":paperclip:java17").tasks.named("shadowJar")
-    dependsOn(java6Jar, java17Jar)
+    dependsOn(/*java6Jar, */java17Jar)
 
-    from(zipTree(java6Jar.map { it.outputs.files.singleFile }))
+    //from(zipTree(java6Jar.map { it.outputs.files.singleFile }))
     from(zipTree(java17Jar.map { it.outputs.files.singleFile }))
 
     manifest {
@@ -42,11 +42,11 @@ tasks.jar {
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
-    val java6Sources = project(":paperclip:java6").tasks.named("sourcesJar")
+    //val java6Sources = project(":paperclip:java6").tasks.named("sourcesJar")
     val java17Sources = project(":paperclip:java17").tasks.named("sourcesJar")
-    dependsOn(java6Sources, java17Sources)
+    dependsOn(/*java6Sources, */java17Sources)
 
-    from(zipTree(java6Sources.map { it.outputs.files.singleFile }))
+    //from(zipTree(java6Sources.map { it.outputs.files.singleFile }))
     from(zipTree(java17Sources.map { it.outputs.files.singleFile }))
 
     archiveClassifier.set("sources")

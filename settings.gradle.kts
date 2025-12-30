@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://maven.fabricmc.net")
+        maven("https://libraries.minecraft.net/")
     }
 }
 
