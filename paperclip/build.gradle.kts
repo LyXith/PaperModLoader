@@ -21,6 +21,7 @@ tasks.jar {
 
     //from(zipTree(java6Jar.map { it.outputs.files.singleFile }))
     from(zipTree(java17Jar.map { it.outputs.files.singleFile }))
+    from(project(":fabric-loader").tasks.named("fatJar").map { it.outputs.files.singleFile })
 
     manifest {
         attributes(

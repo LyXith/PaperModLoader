@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "fabricloader",
   "name": "Fabric Loader",
-  "version": "${version}",
+  "version": "0.18.4",
   "environment": "*",
   "description": "The base mod loader.",
   "contact": {

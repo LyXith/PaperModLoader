@@ -47,6 +47,8 @@ subprojects {
     repositories {
         mavenCentral()
         maven(paperMavenPublicUrl)
+        maven("https://maven.fabricmc.net")
+        maven("https://libraries.minecraft.net/")
     }
 
     extensions.configure<PublishingExtension> {

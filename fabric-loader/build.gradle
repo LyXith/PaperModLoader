@@ -108,6 +108,9 @@ dependencies {
 	installer "org.ow2.asm:asm-util:${project.asm_version}"
 	installer "net.fabricmc:sponge-mixin:${project.mixin_version}"
 	installerLaunchWrapper "net.minecraft:launchwrapper:1.12"
+	api("org.sharegov:mjson:1.4.1") {
+		transitive = false
+	}
 
 	// impl dependencies
 	include 'org.ow2.sat4j:org.ow2.sat4j.core:2.3.6'
@@ -131,11 +134,12 @@ apply from: project(":fabric-loader").file('gradle/installer-json.gradle')
 apply from: project(":fabric-loader").file('gradle/launcher.gradle')
 
 processResources {
+	/*
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
-	}
+	}*/
 }
 
 java {
@@ -186,9 +190,10 @@ tasks.register('fatJar', ShadowJar) {
 	from getSat4jAbout.destinationDir
 
 	inputs.property "archivesName", project.base.archivesName.get()
+	/*
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}" }
-	}
+	}*/
 
 	manifest {
 		attributes(

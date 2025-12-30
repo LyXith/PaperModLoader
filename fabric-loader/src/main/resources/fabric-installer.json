@@ -52,6 +52,10 @@
                 "size": 94565
             },
             {
+                "name": "org.sharegov:mjson:1.4.1",
+                "url": "https://repo.maven.apache.org/maven2/"
+            },
+            {
                 "name": "net.fabricmc:sponge-mixin:0.17.0+mixin.0.8.7",
                 "url": "https://maven.fabricmc.net/",
                 "md5": "d27dcb910788a0bd4bea72942a714093",

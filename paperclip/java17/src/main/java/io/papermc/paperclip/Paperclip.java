@@ -7,39 +7,36 @@ import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class Paperclip {
 
+    public static Collection<URL> versions; // Banner
+
+    @SuppressWarnings("all")
     public static void main(final String[] args) {
-        if (Path.of("").toAbsolutePath().toString().contains("!")) {
-            System.err.println("Paperclip may not run in a directory containing '!'. Please rename the affected folder.");
-            System.exit(1);
-        }
-
+        FabricInstaller.LaunchData launchData = FabricInstaller.initialize(); // Banner
         final URL[] classpathUrls = setupClasspath();
-
-        final ClassLoader parentClassLoader = Paperclip.class.getClassLoader().getParent();
-        final URLClassLoader classLoader = new URLClassLoader(classpathUrls, parentClassLoader);
-
-        final String mainClassName = findMainClass();
-        System.out.println("Starting " + mainClassName);
+        FabricInstaller.setLibraryURLs(classpathUrls); // Banner
+        final URLClassLoader classLoader = FabricInstaller.createFabricLoaderClassLoader(launchData); // Banner
+        System.out.println("Starting " + "net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture");// Banner - implement fabric loader
 
         final Thread runThread = new Thread(() -> {
             try {
-                final Class<?> mainClass = Class.forName(mainClassName, true, classLoader);
-                final MethodHandle mainHandle = MethodHandles.lookup()
-                    .findStatic(mainClass, "main", MethodType.methodType(void.class, String[].class))
-                    .asFixedArity();
-                mainHandle.invoke((Object) args);
+                // Banner start
+                Class<?> fabricLoaderMain = classLoader.loadClass(launchData.mainClass());
+                // Launches FabricLoader
+                final MethodHandle handle = MethodHandles.publicLookup().findStatic(fabricLoaderMain, "main", MethodType.methodType(void.class, String[].class));
+                // Banner end
+                handle.invokeExact(args);
             } catch (final Throwable t) {
                 throw Util.sneakyThrow(t);
             }
@@ -81,11 +78,19 @@ public final class Paperclip {
         final Collection<URL> versionUrls = classpathUrls.get("versions").values();
         final Collection<URL> libraryUrls = classpathUrls.get("libraries").values();
 
+        Paperclip.versions = versionUrls;
+        try {
+            System.setProperty("fabric.gameJarPath", Path.of(versionUrls.stream().findFirst().orElseThrow(() -> new IllegalStateException("Didn't find any versions!")).toURI()).toAbsolutePath().toString()); // Banner - implement fabric loader
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Something went wrong while trying to set fabric's game jar path: ", e);
+        }
         final URL[] emptyArray = new URL[0];
+        /*
         final URL[] urls = new URL[versionUrls.size() + libraryUrls.size()];
         System.arraycopy(versionUrls.toArray(emptyArray), 0, urls, 0, versionUrls.size());
         System.arraycopy(libraryUrls.toArray(emptyArray), 0, urls, versionUrls.size(), libraryUrls.size());
-        return urls;
+        return urls;*/
+        return libraryUrls.toArray(emptyArray);
     }
 
     private static PatchEntry[] findPatches() {
@@ -128,19 +133,6 @@ public final class Paperclip {
             return FileEntry.parse(new BufferedReader(new InputStreamReader(libListStream)));
         } catch (final IOException e) {
             throw Util.fail("Failed to read " + fileName + " file", e);
-        }
-    }
-
-    private static String findMainClass() {
-        final String mainClassName = System.getProperty("bundlerMainClass");
-        if (mainClassName != null) {
-            return mainClassName;
-        }
-
-        try {
-            return Util.readResourceText("/META-INF/main-class");
-        } catch (final IOException e) {
-            throw Util.fail("Failed to read main-class file", e);
         }
     }
 

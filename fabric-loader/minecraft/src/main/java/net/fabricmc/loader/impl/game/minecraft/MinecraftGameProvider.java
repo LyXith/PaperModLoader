@@ -34,6 +34,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import mjson.Json;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.ObjectShare;
 import net.fabricmc.loader.api.VersionParsingException;
@@ -338,7 +340,7 @@ public class MinecraftGameProvider implements GameProvider {
 
 		Log.debug(LogCategory.GAME_PROVIDER, "namespace detection result: game=%s runtime=%s mod-default=%s", gameNs, runtimeNs, config.getDefaultModDistributionNamespace());
 
-		if (!gameNs.equals(runtimeNs)) { // game is obfuscated / in another namespace -> remap
+		if (isObfuscated()) { // game is obfuscated / in another namespace -> remap
 			Map<String, Path> obfJars = new HashMap<>(3);
 			String[] names = new String[gameJars.size()];
 
@@ -460,6 +462,10 @@ public class MinecraftGameProvider implements GameProvider {
 		return transformer;
 	}
 
+	public boolean isObfuscated() {
+		return false; // generally no...
+	}
+
 	@Override
 	public boolean canOpenErrorGui() {
 		if (arguments == null || envType == EnvType.CLIENT) {
@@ -491,6 +497,32 @@ public class MinecraftGameProvider implements GameProvider {
 		for (Path lib : miscGameLibraries) {
 			launcher.addToClassPath(lib);
 		}
+		Set<Path> loadedPaths = new HashSet<>();
+		Json.read(System.getProperty("banner.libraries")).asJsonList().stream()
+				.map(Json::asString)
+				.map(Paths::get)
+				.filter(path -> {
+					String fileName = path.getFileName().toString().toLowerCase();
+					return !fileName.contains("asm")
+							&& !fileName.matches("asm-\\d+\\.jar");
+				})
+				.filter(path -> {
+					try {
+						Path absPath = path.toAbsolutePath();
+						return !loadedPaths.contains(absPath);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				})
+				.forEach(path -> {
+					try {
+						Path absPath = path.toAbsolutePath();
+						launcher.addToClassPath(path);
+						loadedPaths.add(absPath);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				});
 	}
 
 	@Override

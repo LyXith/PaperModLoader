@@ -107,7 +107,7 @@ public class EntrypointPatch extends GamePatch {
 
 		if (gameEntrypoint == null) {
 			// main method searches
-			MethodNode mainMethod = findMethod(mainClass, (method) -> method.name.equals("main") && method.desc.equals("([Ljava/lang/String;)V") && isPublicStatic(method.access));
+			MethodNode mainMethod = findMethod(mainClass, (method) -> method.name.equals("main") && method.desc.equals("(Ljoptsimple/OptionSet;)V") && isPublicStatic(method.access)); // NeoTenet - change main method
 
 			if (mainMethod == null) {
 				throw new RuntimeException("Could not find main method in " + entrypoint + "!");
@@ -310,7 +310,7 @@ public class EntrypointPatch extends GamePatch {
 				}
 			}
 		} else {
-			gameMethod = findMethod(mainClass, (method) -> method.name.equals("main") && method.desc.equals("([Ljava/lang/String;)V") && isPublicStatic(method.access));
+			gameMethod = findMethod(mainClass, (method) -> method.name.equals("main") && method.desc.equals("(Ljoptsimple/OptionSet;)V") && isPublicStatic(method.access)); // NeoTenet - change main method
 		}
 
 		if (gameMethod == null) {
@@ -362,7 +362,7 @@ public class EntrypointPatch extends GamePatch {
 				// If we do not find this, then we are certain this is 20w22a.
 				MethodNode serverStartMethod = findMethod(mainClass, method -> {
 					if ((method.access & Opcodes.ACC_SYNTHETIC) == 0 // reject non-synthetic
-							|| method.name.equals("main") && method.desc.equals("([Ljava/lang/String;)V") // reject main method (theoretically superfluous now)
+							|| method.name.equals("main") && method.desc.equals("(Ljoptsimple/OptionSet;)V") // reject main method (theoretically superfluous now)
 							|| VERSION_25w14craftmine.test(gameVersion) && method.parameters.size() < 10) { // reject problematic extra methods
 						return false;
 					}
@@ -453,7 +453,8 @@ public class EntrypointPatch extends GamePatch {
 								return false;
 							}
 
-							return constructorType.getArgumentTypes()[0].getDescriptor().equals("Ljava/lang/Thread;");
+							return constructorType.getArgumentTypes()[0].getDescriptor().equals("Ljoptsimple/OptionSet;") && constructorType.getArgumentTypes()[2].getDescriptor().equals("Ljava/lang/Thread;")
+									|| constructorType.getArgumentTypes()[0].getDescriptor().equals("Ljoptsimple/OptionSet;") && constructorType.getArgumentTypes()[3].getDescriptor().equals("Ljava/lang/Thread;");
 						}
 
 						return false;
