@@ -5,10 +5,10 @@ Subject: [PATCH] Incremental chunk and player saving
 
 
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 3228e6c886b62325c3c47a860fcf3d04ea53f764..ff6fc300e9e7d1dbf4b0fa1e59bffe94e1f51259 100644
+index 2f0fa16865aba3c72ac9f7985605bc925e1e003a..f20e43449c8dcbc76d7c4747da85a8123bb6fecc 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -971,7 +971,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -979,7 +979,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          boolean var4;
          try {
              this.isSaving = true;
@@ -17,7 +17,7 @@ index 3228e6c886b62325c3c47a860fcf3d04ea53f764..ff6fc300e9e7d1dbf4b0fa1e59bffe94
              var4 = this.saveAllChunks(suppressLogs, flush, force);
          } finally {
              this.isSaving = false;
-@@ -1622,9 +1622,29 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1630,9 +1630,29 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          }
  
          this.ticksUntilAutosave--;
@@ -50,7 +50,7 @@ index 3228e6c886b62325c3c47a860fcf3d04ea53f764..ff6fc300e9e7d1dbf4b0fa1e59bffe94
          ProfilerFiller profilerFiller = Profiler.get();
          this.server.spark.executeMainThreadTasks(); // Paper - spark
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 71de8d8920eb33d15a18653dcef370c8e1a43712..20b8cbb84805e4259438766a773d65fb37581662 100644
+index f32cc24c073f86464434890c7437c212c732437e..61962c5d1a02e39bb2a26a123006cd29b58057ad 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1378,6 +1378,26 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe

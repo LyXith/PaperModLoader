@@ -20,10 +20,10 @@ index a2fbc13105673e926cbaed69221826ebd392140f..a42938e1abd371dba6806e65552fde71
  
      @Override
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index ff6fc300e9e7d1dbf4b0fa1e59bffe94e1f51259..d58ee455467b2c8307ea20f8a9d88f0f18053fc1 100644
+index f20e43449c8dcbc76d7c4747da85a8123bb6fecc..ec8726614c60fe42c1854c789c1f2f23121aaa92 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -1736,33 +1736,22 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1744,33 +1744,22 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          }
      }
  
@@ -67,7 +67,7 @@ index ff6fc300e9e7d1dbf4b0fa1e59bffe94e1f51259..d58ee455467b2c8307ea20f8a9d88f0f
          io.papermc.paper.adventure.providers.ClickCallbackProviderImpl.DIALOG_CLICK_MANAGER.handleQueue(this.tickCount); // Paper
          profilerFiller.push("commandFunctions");
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index e2905425313a814cd05ce7fa37679edbd249f1ca..46d7cd841aeeddac765ca1568dc8db2d5abdafef 100644
+index 6716e5bb415d0b5f2a2308045aa71a7ab54f9d01..643938d4f5946de377973ffe5cd415bb541daf36 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -5192,6 +5192,11 @@ public abstract class Entity implements SyncedDataHolder, DebugValueSource, Name
