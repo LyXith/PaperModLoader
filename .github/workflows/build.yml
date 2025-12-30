@@ -42,5 +42,5 @@ jobs:
           makeLatest: true
           removeArtifacts: true
           tag: "1.21.10-release"
-          artifacts: ./build/libs/*.jar
+          artifacts: ./paper-server/build/libs/*.jar
           token: ${{ secrets.GITHUB_TOKEN }}
