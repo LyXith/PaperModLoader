@@ -537,7 +537,7 @@ public class MinecraftGameProvider implements GameProvider {
 
 		try {
 			Class<?> c = loader.loadClass(targetClass);
-			invoker = MethodHandles.lookup().findStatic(c, "main", MethodType.methodType(void.class, String[].class));
+			invoker = MethodHandles.lookup().findStatic(c, "main", MethodType.methodType(String[].class));
 		} catch (NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
 			throw FormattedException.ofLocalized("exception.minecraft.invokeFailure", e);
 		}
