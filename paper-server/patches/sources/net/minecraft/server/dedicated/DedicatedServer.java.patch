@@ -13,24 +13,19 @@
      @Nullable
      private RconThread rconThread;
      public DedicatedServerSettings settings;
-@@ -107,9 +_,23 @@
+@@ -99,6 +_,7 @@
+     private long lastHeartbeat;
+ 
+     public DedicatedServer(
++        joptsimple.OptionSet options, net.minecraft.server.WorldLoader.DataLoadContext worldLoader, // CraftBukkit - Signature changed
+         Thread serverThread,
+         LevelStorageSource.LevelStorageAccess storageSource,
+         PackRepository packRepository,
+@@ -107,9 +_,10 @@
          DataFixer fixerUpper,
          Services services
      ) {
 -        super(serverThread, storageSource, packRepository, worldStem, Proxy.NO_PROXY, fixerUpper, services, LoggingLevelLoadListener.forDedicatedServer());
-+        this(null, null, serverThread, storageSource, packRepository, worldStem, settings, fixerUpper, services);
-+    }
-+
-+    public DedicatedServer(
-+        joptsimple.OptionSet options, net.minecraft.server.WorldLoader.DataLoadContext worldLoader, // CraftBukkit - Signature changed
-+        Thread serverThread,
-+        LevelStorageSource.LevelStorageAccess storageSource,
-+        PackRepository packRepository,
-+        WorldStem worldStem,
-+        DedicatedServerSettings settings,
-+        DataFixer fixerUpper,
-+        Services services
-+    ) {
 +        super(options, worldLoader, serverThread, storageSource, packRepository, worldStem, Proxy.NO_PROXY, fixerUpper, services, LoggingLevelLoadListener.forDedicatedServer()); // CraftBukkit - Signature changed
          this.settings = settings;
 -        this.rconConsoleSource = new RconConsoleSource(this);

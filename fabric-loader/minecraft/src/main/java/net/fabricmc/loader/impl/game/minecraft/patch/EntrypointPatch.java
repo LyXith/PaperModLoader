@@ -453,7 +453,7 @@ public class EntrypointPatch extends GamePatch {
 								return false;
 							}
 
-							return constructorType.getArgumentTypes()[0].getDescriptor().equals("Ljava/lang/Thread;");
+							return constructorType.getArgumentTypes()[0].getDescriptor().equals("Ljoptsimple/OptionSet;");
 						}
 
 						return false;
