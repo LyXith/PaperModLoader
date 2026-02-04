@@ -186,7 +186,7 @@
              this.storageSource = storageSource;
              this.playerDataStorage = storageSource.createPlayerStorage();
              this.fixerUpper = fixerUpper;
-@@ -333,6 +_,46 @@
+@@ -333,6 +_,38 @@
              this.notificationManager = new NotificationManager();
              this.packetProcessor = new PacketProcessor(serverThread);
          }
@@ -222,14 +222,6 @@
 +        Runtime.getRuntime().addShutdownHook(new org.bukkit.craftbukkit.util.ServerShutdownThread(this));
 +        // CraftBukkit end
 +        this.paperConfigurations = services.paper().configurations(); // Paper - add paper configuration files
-+        String[] arguments = ManagementFactory.getRuntimeMXBean().getInputArguments().toArray(new String[0]);
-+        joptsimple.OptionParser parser = new org.bukkit.craftbukkit.Main();
-+        try {
-+            options = parser.parse(arguments);
-+        } catch (Exception ex) {
-+            java.util.logging.Logger.getLogger(org.bukkit.craftbukkit.Main.class.getName()).log(java.util.logging.Level.SEVERE, ex.getLocalizedMessage());
-+        }
-+        org.bukkit.craftbukkit.Main.handleParser(parser, options);
      }
  
      private void readScoreboard(DimensionDataStorage dataStorage) {
@@ -1233,7 +1225,19 @@
      public boolean isPvpAllowed() {
          return this.getGameRules().getBoolean(GameRules.RULE_PVP);
      }
-@@ -1415,10 +_,20 @@
+@@ -1405,20 +_,32 @@
+         return true;
+     }
+ 
++    @io.papermc.paper.annotation.DoNotUse // Paper - do not use server wide gamerule, instead use server level specific one
+     public boolean isCommandBlockEnabled() {
+         return this.getGameRules().getBoolean(GameRules.RULE_COMMAND_BLOCKS_ENABLED);
+     }
+ 
++    @io.papermc.paper.annotation.DoNotUse // Paper - do not use server wide gamerule, instead use server level specific one
+     public boolean isSpawnerBlockEnabled() {
+         return this.getGameRules().getBoolean(GameRules.RULE_SPAWNER_BLOCKS_ENABLED);
+     }
  
      @Override
      public String getMotd() {

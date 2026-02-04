@@ -18,7 +18,7 @@ public final class PaperBootstrap {
 
         getStartupVersionMessages().forEach(LOGGER::info);
 
-        //Main.main(options); // wdog5 - not use it
+        Main.main(options);
     }
 
     private static List<String> getStartupVersionMessages() {
