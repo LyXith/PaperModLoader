@@ -26,9 +26,11 @@ public final class Paperclip {
         FabricInstaller.LaunchData launchData = FabricInstaller.initialize(); // Banner
         final URL[] classpathUrls = setupClasspath();
         FabricInstaller.setLibraryURLs(classpathUrls); // Banner
+        FabricInstaller.setupRemappingClasspath(classpathUrls, launchData); // Banner
         final URLClassLoader classLoader = FabricInstaller.createFabricLoaderClassLoader(launchData); // Banner
+        final String mainClassName = findMainClass();
+        System.setProperty("banner.entrypoint", mainClassName); // Banner - Used in fabric loader in MinecraftGameProvider#launch
         System.out.println("Starting " + "net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture");// Banner - implement fabric loader
-
         final Thread runThread = new Thread(() -> {
             try {
                 // Banner start
@@ -133,6 +135,19 @@ public final class Paperclip {
             return FileEntry.parse(new BufferedReader(new InputStreamReader(libListStream)));
         } catch (final IOException e) {
             throw Util.fail("Failed to read " + fileName + " file", e);
+        }
+    }
+
+    private static String findMainClass() {
+        final String mainClassName = System.getProperty("bundlerMainClass");
+        if (mainClassName != null) {
+            return mainClassName;
+        }
+
+        try {
+            return Util.readResourceText("/META-INF/main-class");
+        } catch (final IOException e) {
+            throw Util.fail("Failed to read main-class file", e);
         }
     }
 
