@@ -207,7 +207,7 @@ public final class FabricLoaderImpl extends net.fabricmc.loader.FabricLoader {
 	}
 
 	private void setup() throws ModResolutionException {
-		boolean remapRegularMods = false;
+		boolean remapRegularMods = false;// PaperModLoader - disabled
 		VersionOverrides versionOverrides = new VersionOverrides();
 		DependencyOverrides depOverrides = new DependencyOverrides(configDir);
 

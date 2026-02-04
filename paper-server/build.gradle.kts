@@ -15,7 +15,7 @@ val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 
 dependencies {
     mache("io.papermc:mache:1.21.10+build.9")
-    paperclip("io.papermc:paperclip:3.0.3")
+    paperclip(project(":paperclip"))
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

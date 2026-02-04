@@ -91,8 +91,8 @@ public class MinecraftGameProvider implements GameProvider {
 	private boolean hasModLoader = false;
 
 	private final GameTransformer transformer = new GameTransformer(
-			new EntrypointPatch(this),
-			new BrandingPatch(),
+			/*new EntrypointPatch(this),
+			new BrandingPatch(),*/
 			new EntrypointPatchFML125(),
 			new TinyFDPatch());
 
@@ -527,7 +527,7 @@ public class MinecraftGameProvider implements GameProvider {
 
 	@Override
 	public void launch(ClassLoader loader) {
-		String targetClass = entrypoint;
+		String targetClass = "org.bukkit.craftbukkit.Main";
 
 		if (envType == EnvType.CLIENT && targetClass.contains("Applet")) {
 			targetClass = "net.fabricmc.loader.impl.game.minecraft.applet.AppletMain";
