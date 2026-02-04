@@ -143,7 +143,7 @@ index fdd164cd45a26c7ef25f1153ab8985ba50c01b14..8578d1f78ddd1bb75f3230f04bfaa35a
  
      private ClientboundLevelChunkWithLightPacket(RegistryFriendlyByteBuf buffer) {
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index bf27fe05ee17b2483bb9bfe5a1b52c8d686e3737..5712b2fa9579c9ba92a2f3083ee2fc79c28ffaaf 100644
+index f920df854dd499baceb3792b8a7d530b995229d9..38b8d01a5e1198f9fcf454e0114e1e5b159fa265 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -609,7 +609,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -184,10 +184,10 @@ index c65b274b965b95eae33690e63c5da2d5a9f2981a..644948d64791d0ffa4166375d0f4419f
          if (io.papermc.paper.event.packet.PlayerChunkLoadEvent.getHandlerList().getRegisteredListeners().length > 0) {
              new io.papermc.paper.event.packet.PlayerChunkLoadEvent(new org.bukkit.craftbukkit.CraftChunk(chunk), packetListener.getPlayer().getBukkitEntity()).callEvent();
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 410be367549a345677c94e9f8d7db0b7fffbf073..015ffd8298989bdb597b18d79adc3debcffc0977 100644
+index bd3ed9ccb44b86bbfb1948cac5c964ea8f1c8779..77cc38b8f5c5a66e7e29127bc216bde432c4233a 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
-@@ -323,7 +323,7 @@ public abstract class PlayerList {
+@@ -324,7 +324,7 @@ public abstract class PlayerList {
                  .getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS);
              player.connection.send(new net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket(
                  new net.minecraft.world.level.chunk.EmptyLevelChunk(serverLevel, player.chunkPosition(), plains),
@@ -197,7 +197,7 @@ index 410be367549a345677c94e9f8d7db0b7fffbf073..015ffd8298989bdb597b18d79adc3deb
          }
          // Paper end - Send empty chunk
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 96fa7390a4bcfa7bdf2cf5346f2de895ac085203..d225267b1b07854b76c88ce461d7817a86d023a0 100644
+index b75c6ae764d88640ddd520c1345634b0365fff60..67a8adcd0537b9b00d16fbfc209c88f0d6071620 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -139,6 +139,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl

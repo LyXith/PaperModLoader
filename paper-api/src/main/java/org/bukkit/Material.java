@@ -2730,17 +2730,27 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
 
     private final int id;
     private final Constructor<? extends MaterialData> ctor;
-    private static final Map<String, Material> BY_NAME = Maps.newHashMap();
+    public static final Map<String, Material> BY_NAME = Maps.newHashMap();
     private final int maxStack;
     public final Class<?> data;
     private final boolean legacy;
-    private final NamespacedKey key;
+    public NamespacedKey key;
     private final Supplier<ItemType> itemType;
     private final Supplier<BlockType> blockType;
+    public boolean isModBlock = false;
+    public boolean isModItem = false;
 
     private Material(final int id) {
         this(id, 64);
     }
+
+    // PaperModLoader start - constructor used to set if the Material is a block or not
+    private Material(final int id, final int stack, boolean isModBlock, boolean isModItem) {
+        this(id, stack);
+        this.isModBlock = isModBlock;
+        this.isModItem = isModItem;
+    }
+    // PaperModLoader end
 
     private Material(final int id, final int stack) {
         this(id, stack, MaterialData.class);
@@ -2980,6 +2990,9 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
      * @return true if this material is a block
      */
     public boolean isBlock() {
+        if (isModBlock) {
+            return true;
+        }
         return asBlockType() != null;
     }
 
@@ -3389,6 +3402,9 @@ public enum Material implements Keyed, Translatable, net.kyori.adventure.transla
      * @return true if this material is an item
      */
     public boolean isItem() {
+        if (isModItem && !isModBlock) {
+            return true;
+        }
         return asItemType() != null;
     }
 

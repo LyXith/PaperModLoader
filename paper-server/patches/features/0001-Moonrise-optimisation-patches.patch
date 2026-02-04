@@ -27740,10 +27740,10 @@ index 4367d84309e6dbae6637cb465332896304db5b5a..384289f5d898fef2f791edcbe0716ed0
                      PrepareSpawnTask.this.loadListener.updateFocus(this.spawnLevel.dimension(), chunkPos);
                  }
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index f0a231faba60cd00bdfeb2db01c3d2af53812ea9..3939b5333e3f2f0c1771a3fba04d75445eaba14f 100644
+index 21fc09acb7863feb3707c5ecd9df05a5872f3a8f..b34c63616d764b6ee90fa30c5e7dbcee3ed344a6 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
-@@ -1182,7 +1182,7 @@ public abstract class PlayerList {
+@@ -1183,7 +1183,7 @@ public abstract class PlayerList {
  
      public void setViewDistance(int viewDistance) {
          this.viewDistance = viewDistance;
@@ -27752,7 +27752,7 @@ index f0a231faba60cd00bdfeb2db01c3d2af53812ea9..3939b5333e3f2f0c1771a3fba04d7544
  
          for (ServerLevel serverLevel : this.server.getAllLevels()) {
              if (serverLevel != null) {
-@@ -1193,7 +1193,7 @@ public abstract class PlayerList {
+@@ -1194,7 +1194,7 @@ public abstract class PlayerList {
  
      public void setSimulationDistance(int simulationDistance) {
          this.simulationDistance = simulationDistance;
