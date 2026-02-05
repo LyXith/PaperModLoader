@@ -196,7 +196,7 @@ public final class MappingConfiguration {
 					}
 				}
 			} else { // no mappings
-				Log.info(LogCategory.MAPPINGS, "Mappings not present!");
+				//Log.info(LogCategory.MAPPINGS, "Mappings not present!");// Do not info - PaperModLoader
 				mappings = new MemoryMappingTree();
 				initializedMappings = true;
 			}
