@@ -14,7 +14,7 @@ dependencies {
 	compileOnly 'org.slf4j:slf4j-api:1.8.0-beta4'
 
 	// launchwrapper + dependencies
-	compileOnly (fileTree('lib/launchwrapper-1.12.jar'))
+	compileOnly 'net.minecraft:launchwrapper:1.12'
 	//implementation 'net.sf.jopt-simple:jopt-simple:5.0.3'
 
 	// Unit testing for semver
