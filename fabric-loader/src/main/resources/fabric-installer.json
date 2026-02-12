@@ -63,6 +63,11 @@
                 "sha256": "e7889fcd185e4199052dcbcf0fe2128581cbf8630aea7feb37429667b1ba49a9",
                 "sha512": "133dd898dabad73381f50bf36ff6c5a10f6d1b36864f407a90266eba639ef52bb7fc8fc011dd3c8560179213ceada291655dae059bfd5d3a9860bd968e7ed97c",
                 "size": 1505269
+            },
+            {
+                "name": "io.papermc:asm-utils:0.0.3",
+                "url": "https://repo.papermc.io/repository/maven-public/",
+                "transitive": false
             }
         ],
         "server": [
