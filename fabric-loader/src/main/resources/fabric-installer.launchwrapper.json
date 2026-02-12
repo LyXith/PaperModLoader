@@ -64,6 +64,11 @@
                 "name": "net.minecraft:launchwrapper:1.12",
                 "md5": "111e7bea9c968cdb3d06ef4632bf7ff0824d0f36",
                 "size": 32999
+            },
+            {
+                "name": "io.papermc:asm-utils:0.0.3",
+                "url": "https://repo.papermc.io/repository/maven-public/",
+                "transitive": false
             }
         ],
         "server": [
