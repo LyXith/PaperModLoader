@@ -131,6 +131,7 @@ final class KnotClassLoader extends AbstractSecureClassLoader implements ClassLo
         } catch (ClassNotFoundException e) {
             // fall through to delegate
         }
+		}
 		return delegate.tryLoadClass(name, false);
 	}
 
