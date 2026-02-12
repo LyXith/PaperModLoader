@@ -222,31 +222,6 @@ final class KnotClassDelegate<T extends ClassLoader & ClassLoaderAccess> impleme
 
 	Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 		synchronized (classLoader.getClassLoadingLockFwd(name)) {
-			if (name.startsWith("io.papermc.paper.") ||
-            name.startsWith("io.papermc.asm.") ||
-            name.startsWith("com.destroystokyo.paper.") ||
-            name.startsWith("org.bukkit.craftbukkit.") ||
-            name.startsWith("org.spigotmc.")) {
-            
-            Class<?> c = classLoader.findLoadedClassFwd(name);
-            if (c == null) {
-                try {
-                    c = parentClassLoader.loadClass(name);
-                    if (LOG_CLASS_LOAD) {
-                        Log.info(LogCategory.KNOT, "[PaperModLoader] 从 parentClassLoader 加载 Paper 类: %s", name);
-                    }
-                } catch (ClassNotFoundException e) {
-                    if (LOG_CLASS_LOAD_ERRORS) {
-                        Log.warn(LogCategory.KNOT, "[PaperModLoader] Paper 类找不到: %s", name);
-                    }
-                    throw e;
-                }
-            }
-            if (resolve) {
-                classLoader.resolveClassFwd(c);
-            }
-            return c;
-        }
 			Class<?> c = classLoader.findLoadedClassFwd(name);
 
 			if (c == null) {
