@@ -116,37 +116,11 @@ final class KnotClassLoader extends AbstractSecureClassLoader implements ClassLo
 
 	@Override
 	protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-		if (name.startsWith("io.papermc.paper.") ||
-        name.startsWith("io.papermc.asm.") ||
-        name.startsWith("com.destroystokyo.paper.") ||
-        name.startsWith("org.bukkit.craftbukkit.") ||
-        name.startsWith("org.spigotmc.")) {
-        try {
-            Class<?> c = originalLoader.loadClass(name);
-            if (resolve) {
-                resolveClass(c);
-            }
-            return c;
-        } catch (ClassNotFoundException e) {
-            // fall through
-        }
-    }
 		return delegate.loadClass(name, resolve);
 	}
 
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
-		if (name.startsWith("io.papermc.paper.") ||
-        name.startsWith("io.papermc.asm.") ||
-        name.startsWith("com.destroystokyo.paper.") ||
-        name.startsWith("org.bukkit.craftbukkit.") ||
-        name.startsWith("org.spigotmc.")) {
-        try {
-            return originalLoader.loadClass(name);
-        } catch (ClassNotFoundException e) {
-            // fall through to delegate
-        }
-		}
 		return delegate.tryLoadClass(name, false);
 	}
 
