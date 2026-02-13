@@ -40,9 +40,7 @@ public final class Paperclip {
                 // Banner end
                 handle.invokeExact(args);
             } catch (final Throwable t) {
-                t.printStackTrace();
-                //wtf is this
-                //throw Util.sneakyThrow(t);
+                throw Util.sneakyThrow(t);
             }
         }, "ServerMain");
         runThread.setContextClassLoader(classLoader);
